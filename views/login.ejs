@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      main {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .my-form {
+        width: 100%;
+        max-width: 400px;
+        background-color: #f1f3f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 20px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px #fff;
+      }
+      .form-title-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+      }
+      .form-title-container small {
+        font-size: 10px;
+      }
+      .input-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+      }
+
+      .input-container input {
+        width: 100%;
+        height: 40px;
+        border-radius: 6px;
+        border: 1px solid;
+        padding: 10px;
+        padding-left: 16px;
+        outline: none;
+      }
+      .input-container input:focus {
+        box-shadow: 0 0 5px lightgray;
+      }
+      .input-container label {
+        font-size: 12px;
+        width: 100%;
+        margin: 3px;
+      }
+      .error-msg {
+        width: 100%;
+        color: rgb(250, 34, 34);
+        font-size: 10px;
+        margin: -3px;
+      }
+      .my-form button {
+        width: 100%;
+        height: 34px;
+        border: 1px solid;
+        border-radius: 8px;
+        margin: 20px 0 2px;
+      }
+      .my-form button:hover {
+        box-shadow: 0 0 10px lightgray;
+        transform: scale(0.989);
+        cursor: pointer;
+        transition: 0.2s all;
+      }
+      .nav-link {
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main">
+      <form class="my-form" id="my-form">
+        <!-- title -->
+        <div class="form-title-container">
+          <h1>Apsona Keep</h1>
+          <small>Please login with your credentials</small>
+        </div>
+        <!-- email -->
+        <div class="input-container">
+          <label for="email">Email Address (e.g., user@example.com)</label>
+          <input id="email" type="email" name="email" placeholder="Email" />
+        </div>
+        <!-- password -->
+        <div class="input-container">
+          <label for="password">Enter Password</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+        </div>
+        <small id="error" class="error-msg"></small>
+        <button type="submit">Login</button>
+        <p class="nav-link">
+          Don't have an account? <a href="/register">Sign up</a>
+        </p>
+      </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icons -->
+    <script
+      src="https://kit.fontawesome.com/854dddf6e7.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      main {
+        height: 100%;
+      }
+
+      /* header */
+      header {
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 60px;
+        border-bottom: 1px solid #d3d3d35c;
+      }
+      .title {
+        color: #97999d;
+        width: 150px;
+        font-size: 20px;
+      }
+      .input-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+      }
+      .input-container input {
+        width: 100%;
+        height: 50px;
+        background-color: #f1f3f4;
+        font-size: 16px;
+        font-family: "Roboto";
+        outline: none;
+        border-radius: 10px;
+        padding: 20px;
+        border: none;
+        padding-left: 16px;
+      }
+      .input-container input:focus {
+        background-color: #fff;
+        box-shadow: 0 0 5px lightgray;
+      }
+      .input-container label {
+        font-size: 12px;
+        width: 100%;
+        margin: 3px;
+      }
+      .empty-note-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .empty-note-list i {
+        font-size: 80px;
+        color: #97999d;
+        margin: 20px 0 10px;
+      }
+      .empty-note-list p {
+        color: #97999d;
+        font-size: 20px;
+      }
+
+      /* section */
+      section {
+        display: flex;
+        height: calc(100vh - 80px);
+        background-color: #fff;
+      }
+
+      /* side bar */
+      .aside-container {
+        height: 100%;
+        flex: 0.6;
+        max-width: 290px;
+        border-right: 1px solid #d3d3d35c;
+      }
+      .icon-container {
+        width: 100%;
+        height: 50px;
+        background-color: transparent;
+        font-size: 16px;
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 30px;
+
+        /* margin: 10px 0; */
+        padding: 30px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      .icon-container:hover {
+        background-color: #f1f3f4;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s all;
+      }
+      .icon {
+        font-size: 20px;
+        width: 50px;
+      }
+      .active-icon {
+        background-color: #feefc3;
+      }
+      .active-icon:hover {
+        background-color: #feefc3;
+      }
+      /* main   */
+      .main-content {
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        flex: 0.7;
+        padding: 20px;
+        overflow: auto;
+      }
+      /*  notes  section */
+      .main-notes-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .take-a-note-container {
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px lightgrey;
+      }
+
+      .note-input-container {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 2px;
+      }
+      .note-input-container input {
+        width: 100%;
+        max-width: 500px;
+        height: 40px;
+        font-size: 16px;
+        margin: 0;
+        padding: 10px 12px;
+        border: none;
+        outline: none;
+      }
+
+      .action-icons-container {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+      }
+      .action-icons-container .icon {
+        font-size: 16px;
+      }
+      .action-icons-container .icon:hover {
+        color: #007bff;
+        cursor: pointer;
+        transition: 0.2s all;
+      }
+      .action-icons-container span {
+        cursor: pointer;
+      }
+      /*  */
+      .notes-list-container {
+        width: 100%;
+        font-family: "roboto";
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 20px 10px;
+      }
+      .note-container {
+        background-color: #fff;
+        width: 100%;
+        max-width: 400px;
+        flex: 150px 1 1;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #d3d3d35c;
+      }
+      .note-title {
+        font-weight: 500;
+        margin: 5px 0;
+      }
+      .note-desc {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+      .note-container .action-icons-container {
+        padding: 10px 0 0 0;
+      }
+
+      #tab-2 {
+        display: none;
+      }
+      #tab-3 {
+        display: none;
+      }
+      #tab-4 {
+        display: none;
+        width: 100%;
+        font-family: "roboto";
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 20px 10px;
+      }
+
+      #tab-5 {
+        display: none;
+        width: 100%;
+        font-family: "roboto";
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 20px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="title">Apsona Keep</span>
+        <!-- search -->
+        <form id="form" class="input-container">
+          <input id="search" type="search" name="search" placeholder="Search" />
+        </form>
+        <div></div>
+      </header>
+      <section>
+        <aside class="aside-container">
+          <button
+            id="1"
+            onclick="handleChangeTab(1)"
+            class="icon-container active-icon"
+          >
+            <i class="fa-regular fa-lightbulb icon"></i>
+            <span class="icon-text">Notes</span>
+          </button>
+          <button id="2" onclick="handleChangeTab(2)" class="icon-container">
+            <i class="fa-regular fa-bell icon"></i>
+            <span class="icon-text">Reminders</span>
+          </button>
+          <button id="3" onclick="handleChangeTab(3)" class="icon-container">
+            <i class="fa-solid fa-pen icon"></i>
+            <span class="icon-text">Edit labels</span>
+          </button>
+          <button id="4" onclick="handleChangeTab(4)" class="icon-container">
+            <i class="fa-solid fa-file-arrow-down icon"></i>
+            <span class="icon-text">Archive</span>
+          </button>
+          <button id="5" onclick="handleChangeTab(5)" class="icon-container">
+            <i class="fa-solid fa-trash icon"></i>
+            <span class="icon-text">Trash</span>
+          </button>
+        </aside>
+        <div class="main-content">
+          <div id="tab-1" class="main-notes-container">
+            <div class="take-a-note-container">
+              <div class="note-input-container">
+                <input id="title" placeholder="Title" />
+                <!-- <i class="fa-thin fa-map-pin"></i> -->
+              </div>
+              <div class="note-input-container">
+                <input id="description" placeholder="Take a note..." />
+              </div>
+              <div class="action-icons-container">
+                <i class="fa-regular fa-bell icon"></i>
+                <i class="fa-solid fa-palette icon"></i>
+                <i class="fa-solid fa-file-arrow-down icon"></i>
+                <i class="fa-solid fa-ellipsis-vertical icon"></i>
+                <span onclick="handleClose()">Close</span>
+                <span onclick="handleSave()">Save</span>
+              </div>
+            </div>
+
+            <div id="notes-list-container" class="notes-list-container"></div>
+          </div>
+          <div id="tab-2">
+            <h1>Will add soon</h1>
+          </div>
+          <div id="tab-3">
+            <h1>Will add soon</h1>
+          </div>
+          <div id="tab-4"></div>
+          <div id="tab-5"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="./js/home.js"></script>
+  </body>
+</html>
