@@ -46,6 +46,7 @@ exports.getNotes = async (req, res, next) => {
     const notes = await NotesModel.find({
       user: req.user._id,
       "deleted.isDeleted": false,
+      isArchived: false,
       $or: [
         { title: { $regex: search_q, $options: "i" } },
         { description: { $regex: search_q, $options: "i" } },
@@ -170,6 +171,23 @@ exports.getDeletedNotes = async (req, res, next) => {
       msg: "success",
       data: notes,
       no_of_deleted_notes: notes.length,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getArchivedNotes = async (req, res, next) => {
+  try {
+    const notes = await NotesModel.find({
+      user: req.user._id,
+      isArchived: true,
+    });
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: notes,
+      no_of_archived: notes.length,
     });
   } catch (error) {
     next(error);
