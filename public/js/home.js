@@ -100,9 +100,7 @@ function handleCreateList(note, element) {
   const archive = document.createElement("i");
   archive.setAttribute("class", "fa-solid fa-file-arrow-down icon");
   archive.onclick = () => {
-    if (!note.deleted.isDeleted) {
-      handleArchive(note, element);
-    }
+    handleArchive(note, element);
   };
   actionIconsContainer.appendChild(archive);
 
@@ -110,10 +108,7 @@ function handleCreateList(note, element) {
   const dlt = document.createElement("i");
   dlt.setAttribute("class", "fa-solid fa-trash icon");
   dlt.onclick = () => {
-    // condition 1 is it is already dlt dont try to dlt again
-    if (!note.deleted.isDeleted) {
-      handleDelete(note._id, element);
-    }
+    handleDelete(note._id, element);
   };
   actionIconsContainer.appendChild(dlt);
   // dots
@@ -164,6 +159,11 @@ async function handleArchive(data, element) {
   }
   const x = document.getElementById(data._id);
   element.removeChild(x);
+  if (data.isArchived) {
+    handleCreateList(result.data, notesListContainer);
+  } else {
+    handleCreateList(result.data, tab4);
+  }
 }
 
 // handle dlt api call
@@ -179,6 +179,7 @@ async function handleDelete(id, element) {
   }
   const x = document.getElementById(id);
   element.removeChild(x);
+  handleCreateList(result.data, tab5);
 }
 
 // get notes list
@@ -193,7 +194,7 @@ async function getNotes(query = "") {
     return;
   }
   if (result.data.length == 0) {
-    emptyNoteList(tab1, "Notes you add appear here");
+    // emptyNoteList(tab1, "Notes you add appear here");
   }
   for (let i = 0; i < result.data.length; i++) {
     const note = result.data[i];
@@ -213,7 +214,7 @@ async function getArchivedData() {
     return;
   }
   if (result.data.length === 0) {
-    emptyNoteList(tab4, "Your archived notes appear here");
+    // emptyNoteList(tab4, "Your archived notes appear here");
   }
   for (let i = 0; i < result.data.length; i++) {
     const note = result.data[i];
@@ -234,7 +235,7 @@ async function getDeleteData() {
     return;
   }
   if (result.data.length === 0) {
-    emptyNoteList(tab5, "No notes in Trash");
+    // emptyNoteList(tab5, "No notes in Trash");
   }
   for (let i = 0; i < result.data.length; i++) {
     const note = result.data[i];

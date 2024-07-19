@@ -112,6 +112,7 @@ exports.updateById = async (req, res, next) => {
     note.isPinned = isPinned;
     note.isArchived = isArchived;
     note.note_theme = note_theme;
+    note.deleted.isDeleted = false;
 
     await note.save();
 
@@ -149,6 +150,7 @@ exports.deleteById = async (req, res, next) => {
     res.status(200).json({
       status: true,
       msg: "success",
+      data: note,
     });
   } catch (error) {
     next(error);
@@ -182,6 +184,7 @@ exports.getArchivedNotes = async (req, res, next) => {
     const notes = await NotesModel.find({
       user: req.user._id,
       isArchived: true,
+      "deleted.isDeleted": false,
     });
     res.status(200).json({
       status: true,
