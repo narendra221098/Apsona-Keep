@@ -3,16 +3,27 @@ const app = express();
 
 // reg middlewares
 app.use(express.json());
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 // import all routes
 const usersRouter = require("./routes/users");
 const notesRouter = require("./routes/notes");
 //
+const auth = require("./middlewares/authentication");
+//
 app.use("/api/users", usersRouter);
 app.use("/api/notes", notesRouter);
 
+// login
 app.get("/", (req, res, nxt) => {
-  res.send("Welcome to Apsona-Keep API");
+  res.render("home");
+});
+app.get("/login", (req, res, nxt) => {
+  res.render("login");
+});
+app.get("/register", (req, res, nxt) => {
+  res.render("register");
 });
 
 // error handlers
