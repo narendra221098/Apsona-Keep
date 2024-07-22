@@ -1,0 +1,38 @@
+.listContainer {
+  width: 100%;
+  max-width: 930px;
+  /* background-color: red; */
+  margin: 10px 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.noteContainer {
+  flex: 250px 1 1;
+  /* background-color: red; */
+  max-width: 300px;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px lightgrey;
+}
+.noteContainer .title {
+  font-size: 16px;
+}
+.noteContainer .description {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.noteIconsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #5e5e5e;
+}
+.noteIconsContainer .icon {
+  cursor: pointer;
+}

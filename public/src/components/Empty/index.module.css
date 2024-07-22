@@ -1,0 +1,17 @@
+.emptyNote {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.emptyNote .icon {
+  font-size: 80px;
+  color: #e5e5e5;
+}
+.emptyNote p {
+  color: #5f6368;
+  font-size: 20px;
+}
