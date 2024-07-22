@@ -1,12 +1,10 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const app = express();
 
 // reg middlewares
 app.use(express.json());
-app.use(cors());
-app.set("view engine", "ejs");
-app.use(express.static("public"));
 
 // import all routes
 const usersRouter = require("./routes/users");
@@ -17,10 +15,14 @@ const notesRouter = require("./routes/notes");
 app.use("/api/users", usersRouter);
 app.use("/api/notes", notesRouter);
 
-app.get("*", (req, res, next) => {
-  res.send("hello world");
-});
+// static middleware
+// static middleware
 
+// static middleware
+app.use(express.static(path.join(__dirname, "public", "dist")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "public", "dist", "index.html"))
+);
 // error handlers
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ status: false, msg: err.message });
