@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 // reg middlewares
 app.use(express.json());
+app.use(cors());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
@@ -10,20 +12,13 @@ app.use(express.static("public"));
 const usersRouter = require("./routes/users");
 const notesRouter = require("./routes/notes");
 //
-const auth = require("./middlewares/authentication");
+// const auth = require("./middlewares/authentication");
 //
 app.use("/api/users", usersRouter);
 app.use("/api/notes", notesRouter);
 
-// login
-app.get("/", (req, res, nxt) => {
-  res.render("home");
-});
-app.get("/login", (req, res, nxt) => {
-  res.render("login");
-});
-app.get("/register", (req, res, nxt) => {
-  res.render("register");
+app.get("*", (req, res, next) => {
+  res.send("hello world");
 });
 
 // error handlers

@@ -10,8 +10,12 @@ routes
   .post(auth, notesController.addNotes)
   .get(auth, notesController.getNotes);
 
-routes.route("/deleted-notes").get(auth, notesController.getDeletedNotes);
-routes.route("/archived-notes").get(auth, notesController.getArchivedNotes);
+routes.route("/archive/:id").put(auth, params, notesController.changeArchive);
+routes.route("/restore/:id").put(auth, params, notesController.restore);
+routes
+  .route("/delete/:id")
+  .delete(auth, params, notesController.deletePermanent);
+routes.route("/trash").delete(auth, notesController.clearTrash);
 
 routes
   .route("/:id")
