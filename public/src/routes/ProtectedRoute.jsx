@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
 
-const base = "http://localhost:4000/api";
+const base = "/api";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkMDdiNmE2OWRlMzdhNDlkN2Q4YSIsImlhdCI6MTcyMTY2ODk0NSwiZXhwIjoxNzIyNTMyOTQ1fQ.MQibApC8snA1P5ZrV3uPjNHtqUyaCUrx7NVvMavY-fs";
 const fetchCall = async (url, options) => {
