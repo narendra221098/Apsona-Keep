@@ -47,3 +47,9 @@
   /* font-size: 14px; */
   cursor: pointer;
 }
+
+.clearTrash {
+  font-size: 12px;
+  padding: 4px 10px;
+  color: #e42d2d;
+}

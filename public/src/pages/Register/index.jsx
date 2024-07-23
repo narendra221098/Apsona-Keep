@@ -8,9 +8,9 @@ import fetchCall from "../../utils/fetchCall";
 import styles from "./index.module.css";
 
 const emptyForm = {
-  name: "Narendra",
-  email: "kumar964050@gmail.com",
-  password: "Test@123",
+  name: "",
+  email: "",
+  password: "",
 };
 
 const Register = () => {

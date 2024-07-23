@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 // icons
 import { AiOutlineBulb, AiOutlineLogout } from "react-icons/ai";

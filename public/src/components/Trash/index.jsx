@@ -19,7 +19,12 @@ const Trash = () => {
     <div className={styles.container}>
       <p className={styles.msg}>
         Notes in Trash are deleted after 7 days.
-        <span onClick={() => handleClearTrash(ids)}>Empty trash</span>
+        <span
+          className={styles.clearTrash}
+          onClick={() => handleClearTrash(ids)}
+        >
+          Empty trash
+        </span>
       </p>
       {/* empty list */}
       {filteredNotes.length === 0 && (
