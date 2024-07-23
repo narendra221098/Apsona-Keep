@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid #d3d3d38e;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   transition: 0.2s linear;
 }
 .container:hover {
@@ -50,4 +50,8 @@
 .container:hover span {
   display: inline;
   transition: 0.9s linear;
+}
+
+.tab:last-child {
+  margin-top: auto;
 }

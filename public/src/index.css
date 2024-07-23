@@ -20,3 +20,13 @@ main {
   position: relative;
   background-color: #fff;
 }
+
+.loader {
+  margin: 10px 0;
+}
+.page-loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

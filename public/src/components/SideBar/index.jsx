@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
 // icons
-import { AiOutlineBulb } from "react-icons/ai";
+import { AiOutlineBulb, AiOutlineLogout } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
 import { MdLabelOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
@@ -12,6 +13,11 @@ import styles from "./index.module.css";
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/logout");
   };
   return (
     <div className={styles.container}>
@@ -49,6 +55,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       >
         <GoTrash className={styles.icons} />
         <span>Trash</span>
+      </div>
+      {/*  */}
+      <div className={styles.tab} onClick={handleLogout}>
+        <AiOutlineLogout className={styles.icons} />
+        <span>Logout</span>
       </div>
     </div>
   );

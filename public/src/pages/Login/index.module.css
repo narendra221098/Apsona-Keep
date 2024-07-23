@@ -1,0 +1,74 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.myForm {
+  width: 100%;
+  max-width: 400px;
+  background-color: #f1f3f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px #fff;
+}
+.formTitleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.formTitleContainer small {
+  font-size: 10px;
+}
+.inputContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.inputContainer input {
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid;
+  padding: 10px;
+  padding-left: 16px;
+  outline: none;
+}
+.inputContainer input:focus {
+  box-shadow: 0 0 5px lightgray;
+}
+.inputContainer label {
+  font-size: 12px;
+  width: 100%;
+  margin: 3px;
+}
+.errorMsg {
+  width: 100%;
+  color: rgb(250, 34, 34);
+  font-size: 10px;
+  margin: -3px;
+}
+.myForm button {
+  width: 100%;
+  height: 34px;
+  border: 1px solid;
+  border-radius: 8px;
+  margin: 20px 0 2px;
+}
+.myForm button:hover {
+  box-shadow: 0 0 10px lightgray;
+  transform: scale(0.989);
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.navLink {
+  font-size: 10px;
+}

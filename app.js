@@ -5,6 +5,7 @@ const app = express();
 
 // reg middlewares
 app.use(express.json());
+app.use(cors());
 
 // import all routes
 const usersRouter = require("./routes/users");

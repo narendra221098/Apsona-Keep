@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import MoonLoader from "react-spinners/MoonLoader";
 
+//
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
-
-const base = "/api";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkMDdiNmE2OWRlMzdhNDlkN2Q4YSIsImlhdCI6MTcyMTY2ODk0NSwiZXhwIjoxNzIyNTMyOTQ1fQ.MQibApC8snA1P5ZrV3uPjNHtqUyaCUrx7NVvMavY-fs";
-const fetchCall = async (url, options) => {
-  try {
-    const res = await fetch(url, options);
-    return await res.json();
-  } catch (error) {
-    console.error("Error fetching notes:", error);
-  }
-};
+//
+import fetchCall from "../utils/fetchCall";
 
 const ProtectedRoute = () => {
+  const [userDetails, setUserDetails] = useState(null);
+  const [token, setToken] = useState(null);
+  const [isUserDetailsLoading, setIsUserDetailsLoading] = useState(true);
   const [notes, setNotes] = useState([]);
   const [activeTab, setActiveTab] = useState("note");
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
 
   // on change search
   const handleChangeSearchText = (e) => {
@@ -28,7 +25,7 @@ const ProtectedRoute = () => {
   };
   // add new note :done
   const handleAddNewNote = async (note) => {
-    const url = base + "/notes";
+    const url = "/notes";
     const options = {
       method: "POST",
       headers: {
@@ -44,41 +41,40 @@ const ProtectedRoute = () => {
   };
   // Archive :done
   const handleArchive = async (id) => {
-    const url = `${base}/notes/archive/${id}`;
+    const url = `/notes/archive/${id}`;
     const options = {
       method: "PUT",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+      headers: { Authorization: "Bearer " + token },
     };
     const res = await fetchCall(url, options);
     if (res.status) {
-      const x = notes.map((note) => {
-        if (note._id === id) {
-          return res.data;
-        }
-        return note;
-      });
-      setNotes(x);
+      setNotes(
+        notes.map((note) => {
+          if (note._id === id) {
+            return res.data;
+          }
+          return note;
+        })
+      );
     }
   };
   // delete :done
   const handleDelete = async (id) => {
-    const url = `${base}/notes/${id}`;
+    const url = `/notes/${id}`;
     const options = {
       method: "DELETE",
       headers: { Authorization: "Bearer " + token },
     };
     const res = await fetchCall(url, options);
     if (res.status) {
-      const x = notes.filter((note) => note._id !== id);
-      setNotes(x);
+      // modify as dlt is true
+      setNotes(notes.filter((note) => note._id !== id));
     }
   };
 
   // restore : done
   const handleRestore = async (id) => {
-    const url = `${base}/notes/restore/${id}`;
+    const url = `/notes/restore/${id}`;
     const options = {
       method: "PUT",
       headers: { Authorization: "Bearer " + token },
@@ -95,7 +91,7 @@ const ProtectedRoute = () => {
   };
   // dlt permanent :done
   const handleDeletePermanent = async (id) => {
-    const url = `${base}/notes/delete/${id}`;
+    const url = `/notes/delete/${id}`;
     const options = {
       method: "DELETE",
       headers: { Authorization: "Bearer " + token },
@@ -108,7 +104,7 @@ const ProtectedRoute = () => {
 
   // clear trash : done
   const handleClearTrash = async (ids) => {
-    const url = `${base}/notes/trash`;
+    const url = `/notes/trash`;
     const options = {
       method: "DELETE",
       headers: {
@@ -128,29 +124,72 @@ const ProtectedRoute = () => {
   // change bg
   const handleChangeBg = (color) => {};
 
-  // retrieve notes from database
-  useEffect(() => {
-    (async () => {
-      const url = base + "/notes";
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      const res = await fetchCall(url, options);
-      console.log(res);
-      if (res.status) {
-        setNotes(res.data);
-      }
-    })();
-    //...
-  }, [activeTab]);
-
   // Search : title , description
   const searchNotes = notes.filter(
     (note) =>
       note.title.toLowerCase().includes(searchText.toLowerCase()) ||
       note.description.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  // retrieve notes from database
+  useEffect(() => {
+    if (!userDetails) return;
+    (async () => {
+      const endpoint = "/notes";
+      const options = {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+      };
+      const res = await fetchCall(endpoint, options);
+      if (res.status) {
+        setNotes(res.data);
+      }
+    })();
+    //...
+  }, [userDetails, activeTab]);
+
+  // retrieve token
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      navigate("/logout");
+      return;
+    }
+    setToken(JSON.parse(token));
+  }, []);
+  // retrieve user details from db
+  useEffect(() => {
+    if (!token) return;
+
+    (async () => {
+      try {
+        const endpoint = "/users";
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        const res = await fetchCall(endpoint, options);
+        if (res.status) {
+          setUserDetails(res.data);
+        } else {
+          navigate("/logout");
+        }
+      } catch (error) {
+        navigate("/logout");
+        console.log(error.message);
+      } finally {
+        setIsUserDetailsLoading(false);
+      }
+    })();
+  }, [token]);
+
+  // loading
+  if (isUserDetailsLoading)
+    return (
+      <div className="page-loader">
+        <MoonLoader color="blue" size={24} />
+      </div>
+    );
 
   return (
     <main>
@@ -179,6 +218,3 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-// reminder
-// change bg
