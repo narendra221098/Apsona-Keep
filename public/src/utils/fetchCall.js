@@ -1,5 +1,5 @@
-const base = "http://localhost:4000/api";
-// const base = "/api";
+// const base = "http://localhost:4000/api";
+const base = "/api";
 const fetchCall = async (endpoint, options) => {
   try {
     const url = base + endpoint;
